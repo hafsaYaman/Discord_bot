@@ -24,7 +24,7 @@ async def on_member_join(member):
 
 @bot.event
 async def on_message(message):
-    if message.author == bot.user:
+    if message.author == bot.user: 
         return
     if "shit" in message.content.lower():
         await message.delete()
@@ -74,6 +74,12 @@ async def dm(ctx, *, msg):
     await ctx.send(f"you said {msg} in DM")    
 
 @bot.command()
+async def dmsomeone(ctx, user: discord.User, *, msg ):
+    await ctx.message.delete()
+    await user.send(msg)
+    await user.send(f"you said {msg} in DM")    
+
+@bot.command()
 async def reply(ctx):
     await ctx.reply("this is a reply to your message!")
 
@@ -83,5 +89,6 @@ async def poll(ctx, *, question):
     poll_message= await ctx.send(embed=embed)
     await poll_message.add_reaction("👍")
     await poll_message.add_reaction("👎")
+
 
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)
