@@ -22,11 +22,13 @@ async def on_ready():
 async def on_member_join(member):
     await member.send(f"Welcome to the server {member.name}!")
 
+
+swear_words = ["shit", "fuck", "asshole", "bitch", "faggot"]
 @bot.event
 async def on_message(message):
     if message.author == bot.user: 
         return
-    if "shit" in message.content.lower():
+    if any(word in message.content.lower() for word in swear_words):
         await message.delete()
         await message.channel.send(f"{message.author.mention}, please watch your language!")
     
